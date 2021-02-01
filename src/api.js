@@ -1,13 +1,3 @@
-export const dummyApi = () => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve({
-                value: 'yes'
-            })
-        }, 100)
-    })
-}
-
 const delay = (t) => {
     return new Promise((resolve) => {
         setTimeout(() => {
@@ -16,13 +6,26 @@ const delay = (t) => {
     })
 }
 
-class Api {
-    async dummyApi() {
-        await delay(10)
+class DataLoader{
+    dataLoader = null
+    async loadOnce() {
+        this.dataLoader = this.dataLoader || this.load()
+        return this.dataLoader        
+    }
+
+    async load() {
+        console.log('loading');
+        await delay(1000)
         return {
             value: "REAL"
         }
     }
 }
 
-export default Api
+class Api extends DataLoader{
+    url = '/features'
+}
+
+const ApiInstance = new Api()
+
+export default ApiInstance

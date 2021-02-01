@@ -1,36 +1,19 @@
 import React, { PropTypes } from 'react';
 import Api from './api'
 
+// import { useFeatures } from './hooks/featureHook'
+import { useFeatures } from './hooks/simpleFeatureHook'
+
 const propTypes = {};
 
 const defaultProps = {};
 
-class Foo extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-        toggle: 'no'
-    }
-  }
-
-  async componentDidMount()  {
-      const t = await (new Api()).dummyApi()
-      console.log(t)
-      this.setState({
-          toggle: t.value
-      })
-  }
-
-  render() {
-    return (
-      <div className="foo">
-        {this.state.toggle}
-      </div>
-    );
-  }
+const Foo = () => {
+  const flags = useFeatures();
+  return <div>
+    <h1>Component 1</h1>
+    <pre>{JSON.stringify(flags, null, 4)}</pre>
+  </div>
 }
-
-Foo.propTypes = propTypes;
-Foo.defaultProps = defaultProps;
 
 export default Foo;
